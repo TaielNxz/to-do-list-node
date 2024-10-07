@@ -8,6 +8,7 @@ const rl = readline.createInterface({
 const tasks = []
 
 const menu = () => {
+  console.clear()
   console.log('=======================')
   console.log('    Lista de Tareas    ')
   console.log('=======================')
@@ -18,6 +19,8 @@ const menu = () => {
   console.log('5: Salir')
 
   rl.question('Selecciona una opcion: ', (option) => {
+    console.clear()
+
     switch (option) {
       case '1':
         addTask()
@@ -41,17 +44,20 @@ const menu = () => {
 }
 
 const addTask = () => {
-  rl.question('ingrese su tarea:\n', (task) => {
+  rl.question('ingrese su tarea: ', (task) => {
     tasks.push(task)
-    console.log('tarea agregada correctamente')
-    menu()
+    rl.question('\ntarea agregada correctamente...', () => {
+      menu()
+    })
   })
 }
 
 const listTasks = () => {
   console.log('Tareas Pendientes:')
   tasks.forEach((task, i) => console.log(`${i + 1}: ${task}`))
-  menu()
+  rl.question('\nvolver al menu...', () => {
+    menu()
+  })
 }
 
 menu()
