@@ -1,11 +1,41 @@
 const readline = require('readline')
+const fs = require('fs')
+const path = require('path')
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 })
 
-let tasks = []
+// Ruta del archivo donde se almacenarán las tareas
+const TASKS_FILE = path.join(__dirname, 'tasks.json')
+
+// Función para cargar tareas desde el archivo JSON
+const loadTasks = () => {
+  try {
+    if (fs.existsSync(TASKS_FILE)) {
+      const data = fs.readFileSync(TASKS_FILE, 'utf-8')
+      return JSON.parse(data)
+    } else {
+      return []
+    }
+  } catch (error) {
+    console.error('Error al cargar las tareas:', error)
+    return []
+  }
+}
+
+// Funcion para guardar tarea
+const saveTasks = (tasks) => {
+  try {
+    fs.writeFileSync(TASKS_FILE, JSON.stringify(tasks, null, 2))
+  } catch (error) {
+    console.error('Error al guardar las tareas:', error)
+  }
+}
+
+// Inicializar las tareas
+let tasks = loadTasks()
 
 const menu = () => {
   console.clear()
@@ -55,6 +85,7 @@ const menu = () => {
 const addTask = () => {
   rl.question('ingrese su tarea: ', (task) => {
     tasks.push(task)
+    saveTasks(tasks)
     rl.question('\ntarea agregada correctamente...', () => {
       menu()
     })
