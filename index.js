@@ -62,6 +62,13 @@ const addTask = () => {
 }
 
 const listTasks = () => {
+  // verificar si hay tareas pendientes
+  if (tasks.length === 0) {
+    console.log('no hay tareas pendientes')
+    return setTimeout(menu, 1500)
+  }
+
+  // listar tareas
   console.log('Tareas Pendientes:')
   tasks.forEach((task, i) => console.log(`${i + 1}: ${task}`))
   rl.question('\nvolver al menu...', () => {
@@ -70,6 +77,13 @@ const listTasks = () => {
 }
 
 const updateTask = () => {
+  // verificar si hay tareas pendientes
+  if (tasks.length === 0) {
+    rl.question('\nno hay tareas pendientes...', () => {
+      menu()
+    })
+  }
+
   // mostrar listado de tareas
   tasks.forEach((task, i) => console.log(`${i + 1}: ${task}`))
 
@@ -88,6 +102,12 @@ const updateTask = () => {
 }
 
 const deleteTask = () => {
+  // verificar si hay tareas pendientes
+  if (tasks.length === 0) {
+    console.log('no hay tareas pendientes')
+    return setTimeout(menu, 1000)
+  }
+
   // mostrar listado de tareas
   tasks.forEach((task, i) => console.log(`${i + 1}: ${task}`))
 
