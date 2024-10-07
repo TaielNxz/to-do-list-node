@@ -30,6 +30,10 @@ const menu = () => {
         listTasks()
         break
 
+      case '3':
+        updateTask()
+        break
+
       case '5':
         console.log('nos vemos!!!')
         rl.close()
@@ -57,6 +61,24 @@ const listTasks = () => {
   tasks.forEach((task, i) => console.log(`${i + 1}: ${task}`))
   rl.question('\nvolver al menu...', () => {
     menu()
+  })
+}
+
+const updateTask = () => {
+  // mostrar listado de tareas
+  tasks.forEach((task, i) => console.log(`${i + 1}: ${task}`))
+
+  // actualziar tarea
+  rl.question('ingrese tarea a modificar: ', (taskPos) => {
+    console.clear()
+    console.log(`tarea vieja: ${tasks[taskPos - 1]}`)
+
+    rl.question('tarea nueva: ', (newTask) => {
+      tasks[taskPos - 1] = newTask
+      rl.question('\ntarea actualizada...', () => {
+        menu()
+      })
+    })
   })
 }
 
