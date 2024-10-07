@@ -82,6 +82,11 @@ const menu = () => {
 const addTask = () => {
   console.clear()
   rl.question('ingrese su tarea: ', (task) => {
+    const trimmedTask = task.trim()
+    if (trimmedTask === '') {
+      showMessage('La tarea no puede estar vacía...', addTask)
+      return
+    }
     tasks.push(task)
     saveTasks(tasks)
     showMessage('tarea agregada correctamente...', menu)
