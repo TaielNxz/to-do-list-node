@@ -136,7 +136,7 @@ const deleteTask = () => {
 
     console.clear()
 
-    tasks = tasks.filter(task => task !== tasks[index])
+    tasks.splice(index, 1)
 
     saveTasks(tasks)
 
