@@ -50,8 +50,6 @@ const menu = () => {
   console.log('5: Salir')
 
   rl.question('Selecciona una opcion: ', (option) => {
-    console.clear()
-
     switch (option) {
       case '1':
         addTask()
@@ -82,6 +80,7 @@ const menu = () => {
 }
 
 const addTask = () => {
+  console.clear()
   rl.question('ingrese su tarea: ', (task) => {
     tasks.push(task)
     saveTasks(tasks)
@@ -90,11 +89,14 @@ const addTask = () => {
 }
 
 const listTasks = () => {
+  console.clear()
   showTasks()
   showMessage('', menu)
 }
 
 const updateTask = () => {
+  console.clear()
+
   showTasks()
 
   rl.question('ingrese tarea a modificar: ', (taskPos) => {
@@ -118,6 +120,8 @@ const updateTask = () => {
 }
 
 const deleteTask = () => {
+  console.clear()
+
   showTasks()
 
   rl.question('ingrese tarea a eliminar: ', (taskPos) => {
