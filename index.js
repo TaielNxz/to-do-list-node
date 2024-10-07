@@ -120,8 +120,14 @@ const deleteTask = () => {
 
   // eliminar tarea
   rl.question('ingrese tarea a eliminar: ', (taskPos) => {
-    console.clear()
+    if (taskPos > tasks.length) {
+      rl.question('\nopcion invalida...', () => {
+        console.clear()
+        deleteTask()
+      })
+    }
 
+    console.clear()
     tasks = tasks.filter(task => task !== tasks[taskPos - 1])
 
     rl.question('\ntarea elimnada...', () => {
