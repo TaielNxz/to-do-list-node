@@ -62,32 +62,15 @@ const addTask = () => {
 }
 
 const listTasks = () => {
-  // verificar si hay tareas pendientes
-  if (tasks.length === 0) {
-    console.log('no hay tareas pendientes')
-    return setTimeout(menu, 1500)
-  }
-
-  // listar tareas
-  console.log('Tareas Pendientes:')
-  tasks.forEach((task, i) => console.log(`${i + 1}: ${task}`))
+  showTasks()
   rl.question('\nvolver al menu...', () => {
     menu()
   })
 }
 
 const updateTask = () => {
-  // verificar si hay tareas pendientes
-  if (tasks.length === 0) {
-    rl.question('\nno hay tareas pendientes...', () => {
-      menu()
-    })
-  }
+  showTasks()
 
-  // mostrar listado de tareas
-  tasks.forEach((task, i) => console.log(`${i + 1}: ${task}`))
-
-  // actualizar tarea
   rl.question('ingrese tarea a modificar: ', (taskPos) => {
     if (taskPos > tasks.length) {
       rl.question('\nopcion invalida...', () => {
@@ -97,6 +80,7 @@ const updateTask = () => {
     }
 
     console.clear()
+
     console.log(`descripcion vieja: ${tasks[taskPos - 1]}`)
 
     rl.question('descripcion nueva: ', (newTask) => {
@@ -109,16 +93,8 @@ const updateTask = () => {
 }
 
 const deleteTask = () => {
-  // verificar si hay tareas pendientes
-  if (tasks.length === 0) {
-    console.log('no hay tareas pendientes')
-    return setTimeout(menu, 1000)
-  }
+  showTasks()
 
-  // mostrar listado de tareas
-  tasks.forEach((task, i) => console.log(`${i + 1}: ${task}`))
-
-  // eliminar tarea
   rl.question('ingrese tarea a eliminar: ', (taskPos) => {
     if (taskPos > tasks.length) {
       rl.question('\nopcion invalida...', () => {
@@ -128,12 +104,26 @@ const deleteTask = () => {
     }
 
     console.clear()
+
     tasks = tasks.filter(task => task !== tasks[taskPos - 1])
 
     rl.question('\ntarea elimnada...', () => {
       menu()
     })
   })
+}
+
+const showTasks = () => {
+  // verificar si hay tareas pendientes
+  if (tasks.length === 0) {
+    rl.question('\nno hay tareas pendientes...', () => {
+      menu()
+    })
+  }
+
+  // mostrar listado de tareas
+  console.log('Tareas Pendientes:')
+  tasks.forEach((task, i) => console.log(`${i + 1}: ${task}`))
 }
 
 menu()
