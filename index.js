@@ -139,11 +139,15 @@ const deleteTask = () => {
 
     console.clear()
 
-    tasks.splice(index, 1)
-
-    saveTasks(tasks)
-
-    showMessage('tarea elimnada...', menu)
+    rl.question(`¿Estás seguro de eliminar la tarea "${tasks[index]}"? (si): `, (confirm) => {
+      if (confirm.toLowerCase().trim() === 'si') {
+        tasks.splice(index, 1)
+        saveTasks(tasks)
+        showMessage('tarea elimnada...', menu)
+      } else {
+        showMessage('operacion canelada...', menu)
+      }
+    })
   })
 }
 
