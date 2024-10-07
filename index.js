@@ -35,6 +35,7 @@ const saveTasks = (tasks) => {
 }
 
 // Inicializar las tareas
+// eslint-disable-next-line prefer-const
 let tasks = loadTasks()
 
 const menu = () => {
@@ -74,9 +75,7 @@ const menu = () => {
         break
 
       default:
-        rl.question('\nopcion invalida...', () => {
-          menu()
-        })
+        showMessage('opcion invalida...')
         break
     }
   })
@@ -86,17 +85,13 @@ const addTask = () => {
   rl.question('ingrese su tarea: ', (task) => {
     tasks.push(task)
     saveTasks(tasks)
-    rl.question('\ntarea agregada correctamente...', () => {
-      menu()
-    })
+    showMessage('tarea agregada correctamente...')
   })
 }
 
 const listTasks = () => {
   showTasks()
-  rl.question('\nvolver al menu...', () => {
-    menu()
-  })
+  showMessage('')
 }
 
 const updateTask = () => {
@@ -120,9 +115,7 @@ const updateTask = () => {
     rl.question('descripcion nueva: ', (newTask) => {
       tasks[index] = newTask
       saveTasks(tasks)
-      rl.question('\ntarea actualizada...', () => {
-        menu()
-      })
+      showMessage('tarea actualizada...')
     })
   })
 }
@@ -147,23 +140,26 @@ const deleteTask = () => {
 
     saveTasks(tasks)
 
-    rl.question('\ntarea elimnada...', () => {
-      menu()
-    })
+    showMessage('tarea elimnada...')
   })
 }
 
 const showTasks = () => {
   // verificar si hay tareas pendientes
   if (tasks.length === 0) {
-    rl.question('\nno hay tareas pendientes.', () => {
-      menu()
-    })
+    showMessage('no hay tareas pendientes')
   }
 
   // mostrar listado de tareas
   console.log('Tareas Pendientes:')
   tasks.forEach((task, i) => console.log(`${i + 1}: ${task}`))
+}
+
+const showMessage = (message, callback) => {
+  console.log(`\n${message}`)
+  rl.question('Presiona Enter para continuar...', () => {
+    menu()
+  })
 }
 
 menu()
