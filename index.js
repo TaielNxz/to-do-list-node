@@ -23,6 +23,10 @@ const menu = () => {
         addTask()
         break
 
+      case '2':
+        listTasks()
+        break
+
       case '5':
         console.log('nos vemos!!!')
         rl.close()
@@ -34,18 +38,20 @@ const menu = () => {
         break
     }
   })
-
-  console.log(tasks[0])
-  console.log(tasks[1])
 }
 
-// Agregar tareas: Escribir nuevas tareas en un archivo JSON.
 const addTask = () => {
   rl.question('ingrese su tarea:\n', (task) => {
     tasks.push(task)
     console.log('tarea agregada correctamente')
     menu()
   })
+}
+
+const listTasks = () => {
+  console.log('Tareas Pendientes:')
+  tasks.forEach((task, i) => console.log(`${i + 1}: ${task}`))
+  menu()
 }
 
 menu()
