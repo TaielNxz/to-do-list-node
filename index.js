@@ -116,6 +116,7 @@ const updateTask = () => {
 
     rl.question('descripcion nueva: ', (newTask) => {
       tasks[taskPos - 1] = newTask
+      saveTasks(tasks)
       rl.question('\ntarea actualizada...', () => {
         menu()
       })
@@ -137,6 +138,8 @@ const deleteTask = () => {
     console.clear()
 
     tasks = tasks.filter(task => task !== tasks[taskPos - 1])
+
+    saveTasks(tasks)
 
     rl.question('\ntarea elimnada...', () => {
       menu()
