@@ -85,13 +85,13 @@ const addTask = () => {
   rl.question('ingrese su tarea: ', (task) => {
     tasks.push(task)
     saveTasks(tasks)
-    showMessage('tarea agregada correctamente...')
+    showMessage('tarea agregada correctamente...', menu)
   })
 }
 
 const listTasks = () => {
   showTasks()
-  showMessage('')
+  showMessage('', menu)
 }
 
 const updateTask = () => {
@@ -101,10 +101,7 @@ const updateTask = () => {
     const index = parseInt(taskPos, 10) - 1
 
     if (isNaN(index) || index < 0 || index >= tasks.length) {
-      rl.question('\nNúmero de tarea inválido.', () => {
-        console.clear()
-        updateTask()
-      })
+      showMessage('\nNúmero de tarea inválido...', updateTask)
       return
     }
 
@@ -115,7 +112,7 @@ const updateTask = () => {
     rl.question('descripcion nueva: ', (newTask) => {
       tasks[index] = newTask
       saveTasks(tasks)
-      showMessage('tarea actualizada...')
+      showMessage('tarea actualizada...', menu)
     })
   })
 }
@@ -127,10 +124,7 @@ const deleteTask = () => {
     const index = parseInt(taskPos, 10) - 1
 
     if (isNaN(index) || index < 0 || index >= tasks.length) {
-      rl.question('\nNúmero de tarea inválido.', () => {
-        console.clear()
-        deleteTask()
-      })
+      showMessage('\nNúmero de tarea inválido...', deleteTask)
       return
     }
 
@@ -140,14 +134,14 @@ const deleteTask = () => {
 
     saveTasks(tasks)
 
-    showMessage('tarea elimnada...')
+    showMessage('tarea elimnada...', menu)
   })
 }
 
 const showTasks = () => {
   // verificar si hay tareas pendientes
   if (tasks.length === 0) {
-    showMessage('no hay tareas pendientes')
+    showMessage('no hay tareas pendientes', menu)
   }
 
   // mostrar listado de tareas
@@ -158,7 +152,7 @@ const showTasks = () => {
 const showMessage = (message, callback) => {
   console.log(`\n${message}`)
   rl.question('Presiona Enter para continuar...', () => {
-    menu()
+    if (callback) callback()
   })
 }
 
