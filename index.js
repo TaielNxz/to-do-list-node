@@ -103,7 +103,9 @@ const updateTask = () => {
   showTasks()
 
   rl.question('ingrese tarea a modificar: ', (taskPos) => {
-    if (isNaN(taskPos) || taskPos < 0 || taskPos > tasks.length) {
+    const index = parseInt(taskPos, 10) - 1
+
+    if (isNaN(index) || index < 0 || index > tasks.length) {
       rl.question('\nNúmero de tarea inválido.', () => {
         console.clear()
         updateTask()
@@ -112,10 +114,10 @@ const updateTask = () => {
 
     console.clear()
 
-    console.log(`descripcion vieja: ${tasks[taskPos - 1]}`)
+    console.log(`descripcion vieja: ${tasks[index]}`)
 
     rl.question('descripcion nueva: ', (newTask) => {
-      tasks[taskPos - 1] = newTask
+      tasks[index] = newTask
       saveTasks(tasks)
       rl.question('\ntarea actualizada...', () => {
         menu()
@@ -128,7 +130,9 @@ const deleteTask = () => {
   showTasks()
 
   rl.question('ingrese tarea a eliminar: ', (taskPos) => {
-    if (isNaN(taskPos) || taskPos < 0 || taskPos > tasks.length) {
+    const index = parseInt(taskPos, 10) - 1
+
+    if (isNaN(index) || index < 0 || index > tasks.length) {
       rl.question('\nNúmero de tarea inválido.', () => {
         console.clear()
         deleteTask()
@@ -137,7 +141,7 @@ const deleteTask = () => {
 
     console.clear()
 
-    tasks = tasks.filter(task => task !== tasks[taskPos - 1])
+    tasks = tasks.filter(task => task !== tasks[index])
 
     saveTasks(tasks)
 
