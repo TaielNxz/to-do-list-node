@@ -103,8 +103,8 @@ const updateTask = () => {
   showTasks()
 
   rl.question('ingrese tarea a modificar: ', (taskPos) => {
-    if (taskPos > tasks.length) {
-      rl.question('\nopcion invalida...', () => {
+    if (isNaN(taskPos) || taskPos < 0 || taskPos > tasks.length) {
+      rl.question('\nNúmero de tarea inválido.', () => {
         console.clear()
         updateTask()
       })
@@ -127,8 +127,8 @@ const deleteTask = () => {
   showTasks()
 
   rl.question('ingrese tarea a eliminar: ', (taskPos) => {
-    if (taskPos > tasks.length) {
-      rl.question('\nopcion invalida...', () => {
+    if (isNaN(taskPos) || taskPos < 0 || taskPos > tasks.length) {
+      rl.question('\nNúmero de tarea inválido.', () => {
         console.clear()
         deleteTask()
       })
@@ -147,7 +147,7 @@ const deleteTask = () => {
 const showTasks = () => {
   // verificar si hay tareas pendientes
   if (tasks.length === 0) {
-    rl.question('\nno hay tareas pendientes...', () => {
+    rl.question('\nno hay tareas pendientes.', () => {
       menu()
     })
   }
