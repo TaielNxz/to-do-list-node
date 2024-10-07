@@ -105,11 +105,12 @@ const updateTask = () => {
   rl.question('ingrese tarea a modificar: ', (taskPos) => {
     const index = parseInt(taskPos, 10) - 1
 
-    if (isNaN(index) || index < 0 || index > tasks.length) {
+    if (isNaN(index) || index < 0 || index >= tasks.length) {
       rl.question('\nNúmero de tarea inválido.', () => {
         console.clear()
         updateTask()
       })
+      return
     }
 
     console.clear()
@@ -132,11 +133,12 @@ const deleteTask = () => {
   rl.question('ingrese tarea a eliminar: ', (taskPos) => {
     const index = parseInt(taskPos, 10) - 1
 
-    if (isNaN(index) || index < 0 || index > tasks.length) {
+    if (isNaN(index) || index < 0 || index >= tasks.length) {
       rl.question('\nNúmero de tarea inválido.', () => {
         console.clear()
         deleteTask()
       })
+      return
     }
 
     console.clear()
