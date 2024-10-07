@@ -5,7 +5,7 @@ const rl = readline.createInterface({
   output: process.stdout
 })
 
-const tasks = []
+let tasks = []
 
 const menu = () => {
   console.clear()
@@ -34,14 +34,19 @@ const menu = () => {
         updateTask()
         break
 
+      case '4':
+        deleteTask()
+        break
+
       case '5':
         console.log('nos vemos!!!')
         rl.close()
         break
 
       default:
-        console.log('opcion invalida')
-        menu()
+        rl.question('\nopcion invalida...', () => {
+          menu()
+        })
         break
     }
   })
@@ -68,7 +73,7 @@ const updateTask = () => {
   // mostrar listado de tareas
   tasks.forEach((task, i) => console.log(`${i + 1}: ${task}`))
 
-  // actualziar tarea
+  // actualizar tarea
   rl.question('ingrese tarea a modificar: ', (taskPos) => {
     console.clear()
     console.log(`tarea vieja: ${tasks[taskPos - 1]}`)
@@ -78,6 +83,22 @@ const updateTask = () => {
       rl.question('\ntarea actualizada...', () => {
         menu()
       })
+    })
+  })
+}
+
+const deleteTask = () => {
+  // mostrar listado de tareas
+  tasks.forEach((task, i) => console.log(`${i + 1}: ${task}`))
+
+  // eliminar tarea
+  rl.question('ingrese tarea a eliminar: ', (taskPos) => {
+    console.clear()
+
+    tasks = tasks.filter(task => task !== tasks[taskPos - 1])
+
+    rl.question('\ntarea elimnada...', () => {
+      menu()
     })
   })
 }
