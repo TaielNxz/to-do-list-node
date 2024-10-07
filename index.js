@@ -89,10 +89,17 @@ const updateTask = () => {
 
   // actualizar tarea
   rl.question('ingrese tarea a modificar: ', (taskPos) => {
-    console.clear()
-    console.log(`tarea vieja: ${tasks[taskPos - 1]}`)
+    if (taskPos > tasks.length) {
+      rl.question('\nopcion invalida...', () => {
+        console.clear()
+        updateTask()
+      })
+    }
 
-    rl.question('tarea nueva: ', (newTask) => {
+    console.clear()
+    console.log(`descripcion vieja: ${tasks[taskPos - 1]}`)
+
+    rl.question('descripcion nueva: ', (newTask) => {
       tasks[taskPos - 1] = newTask
       rl.question('\ntarea actualizada...', () => {
         menu()
